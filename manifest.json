@@ -1,0 +1,16 @@
+{
+  "author": {
+    "name": "SEOmoz",
+    "email": "help@seomoz.org"
+  },
+  "frameworkVersion": "0.5",
+  "location": "ticket_sidebar",
+  "defaultLocale": "en",
+  "private": true,
+  "singleInstall": true,
+  "parameters": [{
+    "name": "host",
+    "type": "text",
+    "required": true
+  }]
+}
