@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Playground</title>
+        <script src="app.js"></script>
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script language="javascript">
+        var client = null;
+        $(document).ready(function() {
+            client = new ZendeskSearch({
+                host: 'http://hostname:9200/',
+                index: 'zendesk'
+            });
+        });
+        </script>
+    </head>
+    <body>
+        <h1>Usage</h1>
+        <p>First things first, you'll need the dependencies:
+            <pre>
+    &lt;script src="app.js"&gt;&lt;/script&gt;
+            </pre>
+        Then, you'll have to initialize a client with a configuration:
+            <pre>
+    var client = new ZendeskSearch({
+        host: 'http://hostname:9200/',
+        index: 'index-name'
+    });
+            </pre>
+        With that object in hand, you'll be able to find tags:
+        <pre>
+    /* Find all tags */
+    client.search('*', function(results) {
+        for (var index in results['results']) {
+            console.log('Found ' + results['results'][index]);
+        }
+    });
+        </pre>
+        And of course, you'll be able to add tags:
+        <pre>
+    /* Add a tag called foo */
+    client.add('foo', function(obj) { console.log(obj); });
+        </pre>
+        And if you ever tire of the tags, you can of course, delete them:
+        <pre>
+    /* DELETE! DELETE! DELEEEEETE! */
+    client.remove('foo', function(obj) { console.log(obj); });
+        </p>
+    </body>
+</html>
