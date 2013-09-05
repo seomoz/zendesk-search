@@ -9,7 +9,7 @@
  */
 function ZendeskSearch(config) {
     this.config = config;
-    ejs.client  = ejs.jQueryClient(config['host']);
+    ejs.client  = ejs.jQueryClient(config.host);
 
     /* The name of this type in Elasticsearch */
     this.estype = 'zendesk-tag';
@@ -30,7 +30,7 @@ function ZendeskSearch(config) {
 
 /* Intitialize the elasticsearch index we're using to be ready to go */
 ZendeskSearch.prototype.initialize = function(shards, replicas, cb, errb) {
-    var url = '/' + this.config['index'];
+    var url = '/' + this.config.index;
     var data = {
         'settings': {
             'number_of_shards': shards,
@@ -38,7 +38,7 @@ ZendeskSearch.prototype.initialize = function(shards, replicas, cb, errb) {
         }, 'mappings': {
         }
     };
-    data['mappings'][this.estype] = this.schema;
+    data.mappings[this.estype] = this.schema;
 
     ejs.client.post(url, JSON.stringify(data), cb, function(err) {
         console.log('Error making index');
@@ -51,7 +51,7 @@ ZendeskSearch.prototype.initialize = function(shards, replicas, cb, errb) {
 ZendeskSearch.prototype.add = function(tag, cb, errb) {
     var me = this;
     ejs.Document(
-        this.config['index'], this.estype, tag).source({
+        this.config.index, this.estype, tag).source({
             name: tag
         }).refresh(true).doIndex(function(doc) {
             cb.call(me, doc);
@@ -63,7 +63,7 @@ ZendeskSearch.prototype.search = function(query, cb, errb) {
     var me = this;
     /* Build up a request object */
     var request = ejs.Request()
-        .indices(this.config['index'])
+        .indices(this.config.index)
         .types(this.estype)
         .fields(['name'])
         .query(ejs.QueryStringQuery(query));
@@ -71,13 +71,13 @@ ZendeskSearch.prototype.search = function(query, cb, errb) {
     console.log(request.toString());
     request.doSearch(function(results) {
         var result = {
-            took: results['took'],
-            total: results['hits']['total'],
+            took: results.took,
+            total: results.hits.total,
             results: []
         };
-        for (var i = 0; i < results['hits']['hits'].length; ++i) {
-            var item = results['hits']['hits'][i];
-            result.results.push(item['fields']['name']);
+        for (var i = 0; i < results.hits.hits.length; ++i) {
+            var item = results.hits.hits[i];
+            result.results.push(item.fields.name);
         }
         cb.call(me, result);
     });
@@ -85,5 +85,5 @@ ZendeskSearch.prototype.search = function(query, cb, errb) {
 
 /* Delete a tag */
 ZendeskSearch.prototype.remove = function(tag, cb, errb) {
-    ejs.Document(this.config['index'], this.estype, tag).doDelete(cb, errb);
+    ejs.Document(this.config.index, this.estype, tag).doDelete(cb, errb);
 };
