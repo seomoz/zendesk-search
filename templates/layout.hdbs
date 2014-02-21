@@ -1,3 +1,17 @@
-<header>
-  <h3>HELLO FROM TAG SEARCH</h3>
-</header>
+<div id="zendesk-tag-widget">
+	<div id="zendesk-tag-widget-header">
+		<h3>Zendesk Tag Widget</h3>
+	</div>
+	<div id="zendesk-tag-widget-content">
+		<input type="text" name="Search" placeholder="Search" id="search">
+		<button onclick="myFunction()"> Submit</button>
+		<p id="demo"></p>
+	</div>
+</div>
+
+<script>
+	function myFunction() { 
+		$('#demo').text($('#search').val());
+	}
+</script>
+
