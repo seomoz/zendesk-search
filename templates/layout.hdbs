@@ -4,14 +4,10 @@
 	</div>
 	<div id="zendesk-tag-widget-content">
 		<input type="text" name="Search" placeholder="Search" id="search">
-		<button onclick="myFunction()"> Submit</button>
+		<button class="searchbutton"> Submit</button>
 		<p id="demo"></p>
 	</div>
 </div>
 
-<script>
-	function myFunction() { 
-		$('#demo').text($('#search').val());
-	}
-</script>
+
 
