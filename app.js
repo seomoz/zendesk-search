@@ -1,5 +1,10 @@
 (function() {
   return {
-    //app goes here
+    events: { 
+     'click .searchbutton': 'sayHello'
+    },
+    sayHello: function() {
+      alert('Hello');
+    }
   };
 }());
