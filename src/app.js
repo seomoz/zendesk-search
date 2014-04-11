@@ -1,10 +1,16 @@
 (function() {
   return {
-    events: { 
-     'click .searchbutton': 'sayHello'
+    events: {
+      'app.activated': 'initialize',
+      'click .searchbutton': 'sayHello'
     },
     sayHello: function() {
-      alert('Hello');
+      alert(this.client.config);
+    },
+    initialize: function() {
+      this.client = new ZendeskSearch({
+        'host': this.setting('host')
+      });
     }
   };
 }());
