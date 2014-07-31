@@ -1,3 +1,6 @@
+<script src="{{assetURL "elastic.min.js"}}"></script>
+<script src="{{assetURL "elastic-jquery-client.min.js"}}"></script>
+<script src="{{assetURL "zendesk-search.js"}}"></script>
 <div id="zendesk-tag-widget">
 	<div id="zendesk-tag-widget-header">
 		<h3>Zendesk Tag Widget</h3>
