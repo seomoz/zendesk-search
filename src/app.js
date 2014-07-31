@@ -10,7 +10,9 @@
                 host: this.setting('host'),
                 index: 'dummy-index'
             });
-            console.log(es);
+            es.search('hello', function (results) {
+                console.log(results);
+            });
         }
     };
 }());
