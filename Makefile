@@ -7,4 +7,4 @@ zendesk-search.zip: app.js manifest.json app.css templates/* assets/* translatio
 
 # Create app.js by joining of our source files
 app.js: src/*.js
-	cat src/zendesk-search.js src/app.js > app.js
+	cp src/app.js app.js
