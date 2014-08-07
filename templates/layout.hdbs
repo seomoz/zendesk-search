@@ -8,7 +8,13 @@
 	<div id="zendesk-tag-widget-content">
 		<input type="text" name="Search" placeholder="Search" id="search">
 		<button class="searchbutton"> Submit</button>
-		<p id="demo"></p>
+    <button class="initialize"> Initialize</button>
+	 
+    <input type="text" name="Add" placeholder="Add tag" id="add-tag">
+    <button class="addbutton"> Add tag</button>
+
+    <input type="text" name="Remove" placeholder="Remove tag" id="remove-tag">
+    <button class="removebutton"> Remove tag</button>
 	</div>
 </div>
 

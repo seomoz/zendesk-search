@@ -3,20 +3,50 @@
     "use strict";
     return {
         events: {
-            'app.activated': 'initialize',
-            'click .searchbutton': 'search'
+            'click .addbutton': 'add',
+            'click .searchbutton': 'search',
+            'click .removebutton': 'remove',
+            'click .initialize': 'initialize'
         },
 
-        initialize: function() {
-            this.es = new ZendeskSearch({
-                host: this.setting('host'),
-                index: this.setting('index')
-            });
+        getZendesk: function() {
+            if (this.zs === undefined) {
+                this.zs = new ZendeskSearch({
+                    host: this.setting('host'),
+                    index: this.setting('index')
+                });
+            }
+            return this.zs;
         },
 
         search: function () {
-            this.es.search('hello', function (results) {
+            var query = this.$('#search').val();
+            this.getZendesk().search(query, function (results) {
                 console.log(results);
+            });
+        },
+
+        add: function () {
+            var tag = this.$('#add-tag').val();
+            this.getZendesk().add(tag, function () {
+                console.log('Added tag ' + tag);
+            });
+        },
+
+        remove: function () {
+            var tag = this.$('#remove-tag').val();
+            this.getZendesk().remove(tag, function () {
+                console.log('Removed tag ' + tag);
+            }, function () {
+                console.log('Failed to remove tag ' + tag);
+            });
+        },
+
+        initialize: function() {
+            this.getZendesk().initialize(1, 0, function () {
+                console.log('Initialized index');
+            }, function () {
+                console.log('Failed to initialize index');
             });
         }
     };

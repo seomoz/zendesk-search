@@ -12,5 +12,9 @@
     "name": "host",
     "type": "text",
     "required": true
+  }, {
+    "name": "index",
+    "type": "text",
+    "required": true
   }]
 }
