@@ -1,12 +1,18 @@
-/*global alert*/
+/*global console, ZendeskSearch*/
 (function () {
     "use strict";
     return {
         events: {
-            'click .searchbutton': 'sayHello'
+            'click .searchbutton': 'search'
         },
-        sayHello: function () {
-            alert('Hello');
+        search: function () {
+            var es = new ZendeskSearch({
+                host: this.setting('host'),
+                index: 'dummy-index'
+            });
+            es.search('hello', function (results) {
+                console.log(results);
+            });
         }
     };
 }());
