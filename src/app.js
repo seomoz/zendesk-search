@@ -3,14 +3,19 @@
     "use strict";
     return {
         events: {
+            'app.activated': 'initialize',
             'click .searchbutton': 'search'
         },
-        search: function () {
-            var es = new ZendeskSearch({
+
+        initialize: function() {
+            this.es = new ZendeskSearch({
                 host: this.setting('host'),
-                index: 'dummy-index'
+                index: this.setting('index')
             });
-            es.search('hello', function (results) {
+        },
+
+        search: function () {
+            this.es.search('hello', function (results) {
                 console.log(results);
             });
         }
