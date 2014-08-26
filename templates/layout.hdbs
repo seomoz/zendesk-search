@@ -1,5 +1,5 @@
-<script src="{{assetURL "elastic.min.js"}}"></script>
-<script src="{{assetURL "elastic-jquery-client.min.js"}}"></script>
+<script src="{{assetURL "elasticsearch-js/elasticsearch.js"}}"></script>
+<script src="{{assetURL "elasticsearch-js/elasticsearch.jquery.js"}}"></script>
 <script src="{{assetURL "zendesk-search.js"}}"></script>
 <div id="zendesk-tag-widget">
 	<div id="zendesk-tag-widget-header">

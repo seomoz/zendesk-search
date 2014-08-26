@@ -1,4 +1,4 @@
-/*global ejs, console*/
+/*global ejs, console, $*/
 
 /* Create an object that can be used to interact with our search database
  *
@@ -12,7 +12,9 @@
 function ZendeskSearch(config) {
     "use strict";
     this.config = config;
-    ejs.client  = ejs.jQueryClient(config.host);
+    this.client = new $.es.Client({
+        hosts: this.config.host
+    });
 
     /* The name of this type in Elasticsearch */
     this.estype = 'zendesk-tag';
@@ -33,64 +35,75 @@ function ZendeskSearch(config) {
 
     /* Intitialize the elasticsearch index we're using to be ready to go */
     this.initialize = function (shards, replicas, cb, errb) {
-        var url = '/' + this.config.index,
-            data = {
-                'settings': {
-                    'number_of_shards': shards,
-                    'number_of_replicas': replicas
-                },
-                'mappings': {}
-            };
-        data.mappings[this.estype] = this.schema;
-
-        ejs.client.post(url, JSON.stringify(data), cb, function (err) {
-            console.log('Error making index');
-            console.log(err);
-            errb(err);
-        });
+        /* I've not gotten around to porting this to use the new Elasitcsearch
+         * client */
     };
 
     /* Add a tag to the search cluster */
-    this.add = function (tag, cb) {
+    this.add = function (tag, cb, errb) {
         var me = this;
-        ejs.Document(
-            this.config.index,
-            this.estype,
-            tag
-        ).source({
-            name: tag
-        }).refresh(true).doIndex(function (doc) {
-            cb.call(me, doc);
+        this.client.index({
+            index: this.config.index,
+            type: this.estype,
+            body: {
+                'name': tag
+            },
+            id: tag
+        }, function(err, response, status) {
+            if (err === null || err === undefined) {
+                cb.call(me, response);
+            } else {
+                errb.call(me, response);
+            }
         });
     };
 
     /* Search for any tickets that match the provided query string */
-    this.search = function (query, cb) {
-        var i = 0,
-            me = this,
-        /* Build up a request object */
-            request = ejs.Request()
-                .indices(this.config.index)
-                .types(this.estype)
-                .fields(['name'])
-                .query(ejs.QueryStringQuery(query));
-
-        console.log(request.toString());
-        request.doSearch(function (results) {
-            var result = {
-                took: results.took,
-                total: results.hits.total,
-                results: []
-            };
-            for (i = 0; i < results.hits.hits.length; i += 1) {
-                result.results.push(results.hits.hits[i].fields.name);
+    this.search = function (query, cb, errb) {
+        var me = this,
+            i  = 0;
+        this.client.search({
+            index: this.config.index,
+            body: {
+                query: {
+                    match: {
+                        name: 'hello'
+                    }
+                },
+                fields: ['name']
             }
-            cb.call(me, result);
+        }, function (err, response, status) {
+            if (err === null || err === undefined) {
+                var result = {
+                    took: response.took,
+                    total: response.hits.total,
+                    results: []
+                };
+                console.log(response);
+                for (i = 0; i < response.hits.hits.length; i += 1) {
+                    result.results.push(response.hits.hits[i].fields.name);
+                }
+                cb.call(me, result);
+            } else {
+                errb.call(me, err);
+            }
         });
+
     };
 
     /* Delete a tag */
     this.remove = function (tag, cb, errb) {
-        ejs.Document(this.config.index, this.estype, tag).doDelete(cb, errb);
+        var me = this;
+        this.client.delete({
+            index: this.config.index,
+            type: this.estype,
+            id: tag
+        }, function(err, response, status) {
+            if (err === null || err === undefined) {
+                cb.call(me, response);
+            } else {
+                errb.call(me, err);
+            }
+        });
     };
 }
