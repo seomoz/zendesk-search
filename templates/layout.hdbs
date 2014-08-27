@@ -3,20 +3,28 @@
 <script src="{{assetURL "zendesk-search.js"}}"></script>
 <div id="zendesk-tag-widget">
 	<div id="zendesk-tag-widget-header">
-		<h3>Zendesk Tag Widget</h3>
+		<div id="zendesk-widget-header">Zendesk Tag Widget</div>
+		<a id="admin-toggle" href="#"> admin view </a>
+		<div style="clear:both"></div>
 	</div>
 	<div id="zendesk-tag-widget-content">
-		<input type="text" name="Search" placeholder="Search" id="search">
-		<button class="searchbutton"> Submit</button>
-    <button class="initialize"> Initialize</button>
-	 
-    <input type="text" name="Add" placeholder="Add tag" id="add-tag">
-    <button class="addbutton"> Add tag</button>
-
-    <input type="text" name="Remove" placeholder="Remove tag" id="remove-tag">
-    <button class="removebutton"> Remove tag</button>
+		<input type="text" name="Search" placeholder="Search" id="search-add-tag">
+		<button class="search-add-button"> Search</button>
+		<br>
+		<div id="es-add-results">
+		</div>
+	</div>
+	<div id="zendesk-tag-admin-content">
+	    <button class="initialize"> Initialize</button>
+	    <br>
+		<input type="text" name="Add" placeholder="Add tag to ES" id="add-tag">
+	    <button class="addbutton"> Add tag</button>
+	    <br>
+	    <input type="text" name="Remove" placeholder="Remove tag from ES" id="search-remove-tag">
+	    <button class="search-remove-button"> Search</button>
+	    <div id="es-remove-results">
+		</div>
 	</div>
 </div>
-
 
 

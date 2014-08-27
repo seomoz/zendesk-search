@@ -1,0 +1,52 @@
+#zendesk-tag-widget #zendesk-tag-admin-content {
+	display: none;
+}
+
+#zendesk-tag-widget #admin-toggle {
+	float: right;
+	color: #555;
+}
+
+#zendesk-tag-widget #zendesk-tag-widget-header {
+	margin-bottom: 10px;
+}
+
+#zendesk-tag-widget input {
+	margin: 5px 5px 5px 0;
+}
+
+#zendesk-tag-widget button {
+	padding: 7px 10px;
+	border: #AAA 1px solid;
+	background: #dedede;
+	border-radius: 3px;
+}
+
+#zendesk-tag-widget #zendesk-widget-header {
+	float: left;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+#zendesk-tag-widget .es-tag {
+	border: 1px #666 solid;
+	border-radius: 5px;
+	float: left;
+	padding: 5px 10px;
+	margin: 0 5px 5px 0;
+	cursor: pointer;
+	color: #666;
+}
+
+#zendesk-tag-widget .es-tag.add-tag:hover {
+	background: #4DE45A;
+}
+
+#zendesk-tag-widget .es-tag.remove-tag:hover {
+	background: #F53D33;
+}
+
+#zendesk-tag-widget #es-add-results, 
+#zendesk-tag-widget #es-remove-results {
+	margin-top: 10px;
+}
