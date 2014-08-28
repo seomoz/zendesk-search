@@ -26,9 +26,9 @@
             var me = this,
                 query = this.$('#search-add-tag').val().toLowerCase().trim();
             this.getZendesk().search(query, function (response) {
+                me.$('#es-add-results').empty();
                 console.log(response);
-                var results = ['hello', 'world']; // REMOVE: testing fake results. Should "response.results;"
-                results.forEach(function(result) {
+                response.results.forEach(function(result) {
                     var esTag = me.$('<div class="es-tag add-tag">' + result + '</div>');
                     me.$('#es-add-results').append(esTag);
                 });
@@ -40,9 +40,9 @@
             var me = this,
                 query = this.$('#search-remove-tag').val().toLowerCase().trim();
             this.getZendesk().search(query, function (response) {
+                me.$('#es-remove-results').empty();
                 console.log(response);
-                var results = ['hello', 'world']; // REMOVE: testing fake results. Should "response.results;"
-                results.forEach(function(result) {
+                response.results.forEach(function(result) {
                     var esTag = me.$('<div class="es-tag remove-tag">' + result + '</div>');
                     me.$('#es-remove-results').append(esTag);
                 });
@@ -59,7 +59,7 @@
         addToES: function () {
             var me = this,
                 tag = this.$('#add-tag').val().toLowerCase().trim();
-            tag.replace(' ', '_');
+            tag = tag.replace(/ /g, '_');
             this.getZendesk().add(tag, function () {
                 console.log('Added tag ' + tag);
                 me.$('#add-tag').val('');
