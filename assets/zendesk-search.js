@@ -66,8 +66,8 @@ function ZendeskSearch(config) {
             index: this.config.index,
             body: {
                 query: {
-                    match: {
-                        name: 'hello'
+                    query_string: {
+                        query: '*' + query + '*'
                     }
                 },
                 fields: ['name']
