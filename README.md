@@ -1,5 +1,11 @@
 Zendesk Search
 ==============
+![Status: Production](https://img.shields.io/badge/status-production-green.svg?style=flat)
+![Team: Big Data](https://img.shields.io/badge/team-big_data-green.svg?style=flat)
+![Scope: External](https://img.shields.io/badge/scope-external-green.svg?style=flat)
+![Open Source: MIT](https://img.shields.io/badge/open_source-MIT-green.svg?style=flat)
+![Critical: No](https://img.shields.io/badge/critical-yes-red.svg?style=flat)
+
 Sam and friends have been hoping for a way to keep track of the tags that they
 use for their tickets. Since the plugin architecture requires that it all be
 JavaScript-based, we figured the quickest way to get that going would be to use
